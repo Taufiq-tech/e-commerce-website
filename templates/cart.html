@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart - ShopKart</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f6fa;
+        }
+
+        .navbar {
+            background: #111827;
+            color: white;
+
+            padding: 15px 6%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .cart-item {
+            background: white;
+
+            padding: 20px;
+            margin-bottom: 15px;
+
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .quantity {
+            margin-top: 8px;
+            color: #666;
+        }
+
+        .subtotal {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .remove {
+            display: inline-block;
+
+            margin-top: 8px;
+
+            padding: 7px 12px;
+
+            background: #dc2626;
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+        }
+
+        .total-box {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            text-align: right;
+
+            margin-top: 25px;
+        }
+
+        .total {
+            font-size: 28px;
+            font-weight: bold;
+
+            color: #2563eb;
+
+            margin-bottom: 15px;
+        }
+
+        .checkout {
+            display: inline-block;
+
+            padding: 12px 25px;
+
+            background: #16a34a;
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+        }
+
+        .empty {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .shop {
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 12px 20px;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+        }
+
+        @media(max-width: 700px) {
+
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .total-box {
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛒 ShopKart
+    </div>
+
+    <a href="/">
+        Home
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+    <h1>
+        🛒 Your Shopping Cart
+    </h1>
+
+
+    {% if products %}
+
+
+        {% for product in products %}
+
+
+        <div class="cart-item">
+
+
+            <div>
+
+                <div class="product-name">
+
+                    {{ product.name }}
+
+                </div>
+
+
+                <div class="quantity">
+
+                    Quantity:
+                    {{ product.quantity }}
+
+                </div>
+
+
+                <a
+                    href="/remove-from-cart/{{ product.id }}"
+                    class="remove"
+                >
+                    Remove
+                </a>
+
+            </div>
+
+
+            <div class="subtotal">
+
+                ₹{{ product.subtotal }}
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+        <div class="total-box">
+
+            <div class="total">
+
+                Total: ₹{{ total }}
+
+            </div>
+
+
+            <a
+                href="/checkout"
+                class="checkout"
+            >
+                Proceed to Checkout →
+            </a>
+
+        </div>
+
+
+    {% else %}
+
+
+        <div class="empty">
+
+            <h2>
+                Your cart is empty 😔
+            </h2>
+
+            <a
+                href="/"
+                class="shop"
+            >
+                Continue Shopping
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

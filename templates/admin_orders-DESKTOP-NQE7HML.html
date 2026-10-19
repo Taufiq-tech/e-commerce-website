@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Orders - ShopKart</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="/admin" class="back">← Back to Admin Panel</a>
+
+    <h1>📦 Customer Orders</h1>
+
+    {% if orders %}
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User ID</th>
+                <th>Total</th>
+                <th>Address</th>
+                <th>Date</th>
+                <th>status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for order in orders %}
+
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.user_id }}</td>
+                <td>₹{{ order.total }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.created_at }}</td>
+                <td>
+    <form action="/admin/update-order-status/{{ order.id }}" method="POST">
+
+        <select name="status" onchange="this.form.submit()">
+
+            <option value="Pending"
+                {% if order.status == "Pending" %}selected{% endif %}>
+                Pending
+            </option>
+
+            <option value="Confirmed"
+                {% if order.status == "Confirmed" %}selected{% endif %}>
+                Confirmed
+            </option>
+
+            <option value="Shipped"
+                {% if order.status == "Shipped" %}selected{% endif %}>
+                Shipped
+            </option>
+
+            <option value="Delivered"
+                {% if order.status == "Delivered" %}selected{% endif %}>
+                Delivered
+            </option>
+
+            <option value="Cancelled"
+                {% if order.status == "Cancelled" %}selected{% endif %}>
+                Cancelled
+            </option>
+
+        </select>
+
+    </form>
+</td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+        <p>No orders found.</p>
+
+    {% endif %}
+
+</body>
+</html>

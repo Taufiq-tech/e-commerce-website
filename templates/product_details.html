@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.name }} - ShopKart</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f6fa;
+            color: #222;
+        }
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 15px 6%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .product-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-image {
+            min-height: 350px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef2ff;
+            border-radius: 12px;
+
+            font-size: 120px;
+        }
+
+        .product-info h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 30px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .category {
+            margin-bottom: 10px;
+        }
+
+        .stock {
+            margin-bottom: 25px;
+        }
+
+        .cart-btn {
+            display: inline-block;
+
+            padding: 13px 25px;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        .cart-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            margin-top: 15px;
+            margin-left: 10px;
+
+            padding: 13px 25px;
+
+            background: #e5e7eb;
+            color: #111827;
+
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        @media(max-width: 700px) {
+
+            .product-box {
+                grid-template-columns: 1fr;
+            }
+
+            .product-info h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛒 ShopKart
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/cart">
+            🛒 Cart
+        </a>
+
+        {% if session.get('user_id') %}
+
+            <a href="/orders">
+                Orders
+            </a>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="/login">
+                Login
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="product-box">
+
+
+        <div class="product-image">
+
+            📦
+
+        </div>
+
+
+        <div class="product-info">
+
+            <h1>
+                {{ product.name }}
+            </h1>
+
+
+            <p class="description">
+
+                {{ product.description }}
+
+            </p>
+
+
+            <div class="price">
+
+                ₹{{ product.price }}
+
+            </div>
+
+
+            <p class="category">
+
+                <strong>Category:</strong>
+                {{ product.category }}
+
+            </p>
+
+
+            <p class="stock">
+
+                <strong>Stock:</strong>
+                {{ product.stock }}
+
+            </p>
+
+
+            {% if product.stock > 0 %}
+
+                <a
+                    href="/add-to-cart/{{ product.id }}"
+                    class="cart-btn"
+                >
+                    🛒 Add to Cart
+                </a>
+
+            {% else %}
+
+                <p>
+                    ❌ Out of Stock
+                </p>
+
+            {% endif %}
+
+
+            <a
+                href="/"
+                class="back-btn"
+            >
+                ← Back to Shop
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
